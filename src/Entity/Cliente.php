@@ -61,7 +61,7 @@ class Cliente
      *
      * @ORM\Column(name="Rol", type="integer", nullable=false)
      */
-    private $rol='cliente';
+    private $rol;
 
     /**
      * #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'idCliente')]
@@ -146,7 +146,7 @@ class Cliente
 
     public function setRol(int $rol): self
     {
-        $this->rol = 'cliente';
+        $this->rol = 0;
 
         return $this;
     }

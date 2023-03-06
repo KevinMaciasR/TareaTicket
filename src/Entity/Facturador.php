@@ -61,7 +61,7 @@ class Facturador
      *
      * @ORM\Column(name="Rol", type="integer", nullable=false)
      */
-    private $rol='facturador';
+    private $rol;
      /**
      * #[@ORM\OneToMany(targetEntity: Product::class, mappedBy: 'idFacturador')]
      */

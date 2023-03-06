@@ -61,7 +61,7 @@ class Personaltecnico
      *
      * @ORM\Column(name="Rol", type="integer", nullable=false)
      */
-    private $rol='PersonalTecnico';
+    private $rol;
 
     public function getIdTecnico(): ?int
     {

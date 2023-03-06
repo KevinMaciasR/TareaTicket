@@ -76,12 +76,15 @@ class ClienteController extends AbstractController
         $cliente = new Cliente();
         $form = $this->createForm(Cliente1Type::class, $cliente); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
+        $cliente->setRol(0);// rol de cliente
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($cliente);
             $entityManager->flush();
 
-            return $this->redirectToRoute('cliente/PortadaCliente.html.tiwg', [], Response::HTTP_SEE_OTHER);
+            return $this->render('cliente/PortadaCliente.html.twig',[
+                'cliente' => $cliente,
+            ]);
         }
 
         return $this->renderForm('cliente/new.html.twig', [

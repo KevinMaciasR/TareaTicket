@@ -61,7 +61,7 @@ class Gerente
      *
      * @ORM\Column(name="Rol", type="integer", nullable=false)
      */
-    private $rol='gerente';
+    private $rol;
 
     public function getIdgerente(): ?int
     {
