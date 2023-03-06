@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuario index{% endblock %}
+
+{% block body %}
+    <h1>Usuario index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.usuario }}</td>
+                <td>
+                    <a href="{{ path('app_control2_us_show', {'usuario': usuario.usuario}) }}">show</a>
+                    <a href="{{ path('app_control2_us_edit', {'usuario': usuario.usuario}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_control2_us_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cliente index{% endblock %}
+
+{% block body %}
+    <h1>Cliente index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdCliente</th>
+                <th>Nombre</th>
+                <th>Cedula</th>
+                <th>Usuario</th>
+                <th>Clave</th>
+                <th>Correo</th>
+                <th>Rol</th>
+             
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ clientes.idCliente }}</td>
+                <td>{{ clientes.nombre }}</td>
+                <td>{{ clientes.cedula }}</td>
+                <td>{{ clientes.usuario }}</td>
+                <td>{{ clientes.clave }}</td>
+                <td>{{ clientes.correo }}</td>
+                <td>{{ clientes.rol }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_cliente_new') }}">Create new</a>
+{% endblock %}

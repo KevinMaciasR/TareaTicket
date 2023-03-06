@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Referenciasprecios{% endblock %}
+
+{% block body %}
+    <h1>Edit Referenciasprecios</h1>
+
+    {{ include('referenciasprecios/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_referenciasprecios_index') }}">back to list</a>
+
+    {{ include('referenciasprecios/_delete_form.html.twig') }}
+{% endblock %}

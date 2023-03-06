@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Referenciasprecios index{% endblock %}
+
+{% block body %}
+    <h1>Referenciasprecios index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdReferencia</th>
+                <th>Tipotrabajo</th>
+                <th>Preciohora</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for referenciasprecio in referenciasprecios %}
+            <tr>
+                <td>{{ referenciasprecio.idReferencia }}</td>
+                <td>{{ referenciasprecio.tipotrabajo }}</td>
+                <td>{{ referenciasprecio.preciohora }}</td>
+                <td>
+                    <a href="{{ path('app_referenciasprecios_show', {'idReferencia': referenciasprecio.idReferencia}) }}">show</a>
+                    <a href="{{ path('app_referenciasprecios_edit', {'idReferencia': referenciasprecio.idReferencia}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_referenciasprecios_new') }}">Create new</a>
+{% endblock %}

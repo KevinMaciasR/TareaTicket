@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block body %}
+    <h1>Cliente</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+            </tr>
+            <tr>
+                <th>Bienvenido: </th>
+                <td>{{ cliente.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Cedula</th>
+                <td>{{ cliente.cedula }}</td>
+            </tr>
+            <tr>
+                <th>Cedula</th>
+                <td>{{ cliente.idCliente }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-secondary"  href="{{path('app_cliente_Cargarticket', {'idCliente':cliente.idCliente})}}" >Cargar Ticket</a>
+    <a class="btn btn-secondary"  href="{{ path('app_cliente_salir') }}" >Salir</a>    
+{% endblock %}

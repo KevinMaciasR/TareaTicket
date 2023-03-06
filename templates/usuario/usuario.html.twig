@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{# ########################## #}
+{% block title %}Hello UsuarioController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="login-form bg-light mt-4 p-4">
+            {{form_start(form)}}
+            <div class="form-group row">                 
+                {{form_label(form.usuario)}}
+                {{ form_widget(form.usuario) }}
+                
+                {{form_label(form.clave)}}
+                {{ form_widget(form.clave) }}
+
+                <button class="btn">{{ button_label|default('Ingresar') }}</button>
+            </div>   
+            {{ form_end(form) }}    
+
+        </div>
+        
+        <a class="btn btn-secondary"  href="{{ path('app_usuario') }}">Regresar</a>
+    </div>
+    {#<a href="{{ path('app_cliente_show', {'idCliente': cliente.idCliente}) }}">show</a>#}
+</div>
+
+{% endblock %}

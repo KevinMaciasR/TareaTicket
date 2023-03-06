@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Factura index{% endblock %}
+
+{% block body %}
+    <h1>Factura index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdFactura</th>
+                <th>IdFacturador</th>
+                <th>IdCliente</th>
+                <th>Tipotrabajo</th>
+                <th>Precio</th>
+                <th>Fecha</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for factura in facturas %}
+            <tr>
+                <td>{{ factura.idFactura }}</td>
+                <td>{{ factura.idFacturador }}</td>
+                <td>{{ factura.idCliente }}</td>
+                <td>{{ factura.tipotrabajo }}</td>
+                <td>{{ factura.precio }}</td>
+                <td>{{ factura.fecha ? factura.fecha|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_factura_show', {'idFactura': factura.idFactura}) }}">show</a>
+                    <a href="{{ path('app_factura_edit', {'idFactura': factura.idFactura}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_factura_new') }}">Create new</a>
+{% endblock %}

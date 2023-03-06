@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Personaltecnico - Seleccione su trabajo{% endblock %}
+
+<div id="list-example" class="list-group">
+    {% for personaltecnico in personaltecnicos %}
+
+    <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
+  </div>
+  <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+    <h4 id="list-item-1">Item 1</h4>
+    <p>...</p>
+    {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+    {% endfor %}
+  </div>

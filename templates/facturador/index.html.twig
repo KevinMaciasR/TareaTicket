@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturador index{% endblock %}
+
+{% block body %}
+    <h1>Facturador index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdFacturador</th>
+                <th>Nombre</th>
+                <th>Cedula</th>
+                <th>Usuario</th>
+                <th>Clave</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facturador in facturadors %}
+            <tr>
+                <td>{{ facturador.idFacturador }}</td>
+                <td>{{ facturador.nombre }}</td>
+                <td>{{ facturador.cedula }}</td>
+                <td>{{ facturador.usuario }}</td>
+                <td>{{ facturador.clave }}</td>
+                <td>{{ facturador.correo }}</td>
+                <td>{{ facturador.rol }}</td>
+                <td>
+                    <a href="{{ path('app_facturador_show', {'idFacturador': facturador.idFacturador}) }}">show</a>
+                    <a href="{{ path('app_facturador_edit', {'idFacturador': facturador.idFacturador}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_facturador_new') }}">Create new</a>
+{% endblock %}

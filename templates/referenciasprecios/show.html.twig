@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Referenciasprecios{% endblock %}
+
+{% block body %}
+    <h1>Referenciasprecios</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdReferencia</th>
+                <td>{{ referenciasprecio.idReferencia }}</td>
+            </tr>
+            <tr>
+                <th>Tipotrabajo</th>
+                <td>{{ referenciasprecio.tipotrabajo }}</td>
+            </tr>
+            <tr>
+                <th>Preciohora</th>
+                <td>{{ referenciasprecio.preciohora }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_referenciasprecios_index') }}">back to list</a>
+
+    <a href="{{ path('app_referenciasprecios_edit', {'idReferencia': referenciasprecio.idReferencia}) }}">edit</a>
+
+    {{ include('referenciasprecios/_delete_form.html.twig') }}
+{% endblock %}
