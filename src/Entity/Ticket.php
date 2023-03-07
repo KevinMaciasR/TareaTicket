@@ -44,9 +44,9 @@ class Ticket
     private $activo;
 
     /**
-     * @var string
+     * @var ?\DateTime
      *
-     * @ORM\Column(name="Fecha", type="string", nullable=false)
+     * @ORM\Column(name="Fecha", type="datetime", nullable=false)
      */
     private $fecha;
     
@@ -56,7 +56,7 @@ class Ticket
     {   $this->idCliente=$idCliente;
         $this->idReferencia=$idReferencia;
         $this->activo= true;
-        $this->fecha=date("d-m-Y");
+        $this->fecha=new \DateTime();;
         
     }
 
@@ -89,12 +89,12 @@ class Ticket
         return $this;
     }
 
-    public function getFecha(): ?string
+    public function getFecha(): ?\DateTimeInterface
     {
         return $this->fecha;
     }
 
-    public function setFecha(string $fecha): self
+    public function setFecha( \DateTimeInterface $fecha): self
     {
         $this->fecha = $fecha;
 

@@ -16,9 +16,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                {% if ticket != null %}
-               
+            {% for ticket in tickets %}
+               <tr>
                 <td>{{ ticket.idTicket }}</td>
                 <td>{{ ticket.idCliente }}</td>
                 <td>{{ ticket.activo ? 'Yes' : 'No' }}</td>
@@ -27,27 +26,36 @@
                 </td>
             </tr>
             <tr>
-                {% endif %}
+            {% endfor %}
                 <td colspan="5">No hay Tickets</td>
             </tr>
         </tbody>
     </table>
-    <h1>Personaltecnico - Seleccione su trabajo</h1>
-
-    <div id="list-example" class="list-group">
+    <h1>Personal Tecnico - Seleccione su trabajo</h1>
+        <table class="table">
+                    <thead>
+            <tr>
+                <th>Tipo de Trabajo</th>
+                <th>Precio/Hora</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for referenciasprecio in referenciasprecios %}
-        <td>{{ referenciasprecio.tipotrabajo }} </td>
-        <td>{{ referenciasprecio.preciohora }} </td>
-        <td>
-            <a href="{{ path('app_ticket_new',{'idCliente': cliente.idCliente, 'tipotrabajo':referenciasprecio.tipotrabajo }) }}">Crear Ticket</a>
-        </td>
+            <tr>
+                <td>{{ referenciasprecio.tipotrabajo }} </td>
+                <td>{{ referenciasprecio.preciohora }} </td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_ticket_new',{'idCliente': cliente.idCliente, 'tipotrabajo':referenciasprecio.tipotrabajo }) }}">Crear Ticket</a>
+                </td>
+            </tr>  
         {% else %}
                 <tr>
                     <td colspan="8">no records found</td>
                 </tr>
         {% endfor %}
-      </div>
     
-    <a href="{{ path('app_cliente_inicio',{'idCliente': cliente.idCliente}) }}">Regresar</a>
+    
+    <a class="btn btn-secondary" href="{{ path('app_cliente_inicio',{'idCliente': cliente.idCliente}) }}">Regresar</a>
 
 {% endblock %}

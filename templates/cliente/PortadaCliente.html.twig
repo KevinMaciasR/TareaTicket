@@ -16,12 +16,40 @@
                 <th>Cedula</th>
                 <td>{{ cliente.cedula }}</td>
             </tr>
-            <tr>
-                <th>Cedula</th>
-                <td>{{ cliente.idCliente }}</td>
-            </tr>
         </tbody>
     </table>
+    <h1>Facturas del Cliente</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id Factura</th>
+                <th>Id del Facturador</th>
+                <th>Nombre Cliente</th>
+                <th>Servicio </th>
+                <th>Precio Final</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for factura in facturas %}
+            <tr>
+                <td>{{ factura.idFactura }}</td>
+                <td>{{ factura.idFacturador }}</td>
+                <td>{{ cliente.idCliente }}</td>
+                <td>{{ factura.tipotrabajo }}</td>
+                <td>{{ factura.precio }}</td>
+                <td>{{ factura.fecha ? factura.fecha|date('Y-m-d H:i:s') : ''  }}</td>
+                {#  <td>
+                    <a href="{{ path('app_personaltecnico_show', {'idTecnico': personaltecnico.idTecnico}) }}">show</a>
+                    <a href="{{ path('app_personaltecnico_edit', {'idTecnico': personaltecnico.idTecnico}) }}">edit</a>
+                </td>
+            </tr> #}
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
     <a class="btn btn-secondary"  href="{{path('app_cliente_Cargarticket', {'idCliente':cliente.idCliente})}}" >Cargar Ticket</a>
     <a class="btn btn-secondary"  href="{{ path('app_cliente_salir') }}" >Salir</a>    
 {% endblock %}

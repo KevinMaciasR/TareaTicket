@@ -56,6 +56,16 @@ class Factura
      */
     private $fecha;
 
+    //constructor de la clase factura
+    public function __construct($idFacturador, $idCliente, $tipotrabajo, $precio)
+    {
+        $this->idFacturador=$idFacturador;
+        $this->idCliente=$idCliente;
+        $this->tipotrabajo=$tipotrabajo;
+        $this->precio=$precio;
+        $this->fecha=new \DateTime();
+    }
+
     public function getIdFactura(): ?int
     {
         return $this->idFactura;
@@ -123,3 +133,4 @@ class Factura
 
 
 }
+?>

@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Cliente;
 use App\Form\UsuarioType;
-use App\Entity\Usuario;
+use App\Entity\Factura;
+use App\Entity\Ticket;
 use App\Entity\Referenciasprecios;
 use App\Form\Cliente1Type; //pr hacer uso de la funcion que se encuentra en Cliente1type
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,8 +45,13 @@ class ClienteController extends AbstractController
                     'usuario' => 'Js232',
                     'clave' => '12345' ));
                 if($cliente != null ){
+                    //Busqueda de Facturas del cliente
+                    $facturas = $entityManager
+                    ->getRepository(Factura::class)
+                    ->findBy(array( 'idCliente'=> $cliente->getIdCliente()));
                     return $this->render('cliente/PortadaCliente.html.twig',[
                         'cliente' => $cliente,
+                        'facturas' => $facturas
                     ]);
                 }
             /* }catch(Exception $e){
@@ -60,7 +66,7 @@ class ClienteController extends AbstractController
      /**
       * @Route("/salir", name="app_cliente_salir")
       */
-        public function iniciocliente(): Response
+        public function salircliente(): Response
         {   
             return $this->render('usuario/index.html.twig', [
                 'controller_name' => 'UsuarioController',
@@ -76,7 +82,7 @@ class ClienteController extends AbstractController
         $cliente = new Cliente();
         $form = $this->createForm(Cliente1Type::class, $cliente); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
-        $cliente->setRol(0);// rol de cliente
+        $cliente->setRol(4);// rol de cliente
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($cliente);
@@ -100,10 +106,13 @@ class ClienteController extends AbstractController
         $referenciasprecios = $entityManager
         ->getRepository(Referenciasprecios::class)
         ->findAll();
-
+        
+        $tickets = $entityManager
+            ->getRepository(Ticket::class)
+            ->findBy(array('idCliente' => $cliente->getIdCliente()));
         return $this->render('ticket/index.html.twig', [
             'cliente' => $cliente,
-            'ticket' => $cliente->getTicket(),
+            'tickets' => $tickets,
             'referenciasprecios' => $referenciasprecios
 
         ]);

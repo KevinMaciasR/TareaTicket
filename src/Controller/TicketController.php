@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cliente;
+use App\Entity\Factura;
 use App\Entity\Ticket;
 use App\Entity\Referenciasprecios;
 use App\Form\TicketType;
@@ -35,18 +36,27 @@ class TicketController extends AbstractController
      * @Route("/{idCliente}/{tipotrabajo}", name="app_ticket_new", methods={"GET", "POST"})
      * 
      */
-    public function new(Request $request, Cliente $cliente, Referenciasprecios $referencia, EntityManagerInterface $entityManager): Response
+    public function new(Cliente $cliente, Referenciasprecios $referencia, EntityManagerInterface $entityManager): Response
     {
-        $ticket = new Ticket($cliente->getIdCliente(), $referencia->getPreciohora());
+        $ticket = new Ticket($cliente->getIdCliente(), $referencia->getIdReferencia());
         $entityManager->persist($ticket);
         $entityManager->flush();       
-
+        $facturas = $entityManager
+        ->getRepository(Factura::class)
+        ->findBy(array( 'idCliente'=> $cliente->getIdCliente()));
 
         return $this->renderForm('cliente/PortadaCliente.html.twig', [
             'cliente' => $cliente,
+            'facturas' => $facturas
         ]);
     }
        
+
+
+
+
+
+    
     /**
      * @Route("/{idTicket}", name="app_ticket_show", methods={"GET"})
      */
@@ -56,6 +66,12 @@ class TicketController extends AbstractController
             'ticket' => $ticket,
         ]);
     }
+
+
+
+
+
+
 
     ///**
     // * @Route("/{idTicket}/edit", name="app_ticket_edit", methods={"GET", "POST"})
@@ -96,3 +112,4 @@ class TicketController extends AbstractController
         return $this->redirectToRoute('app_ticket_index', [], Response::HTTP_SEE_OTHER);
     }*/
 }
+?>

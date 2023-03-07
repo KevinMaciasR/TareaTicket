@@ -37,7 +37,7 @@ class Referenciasprecios
     private $preciohora;
 
     /**
-     * #[@ORM\OneToMany(targetEntity: Product::class, mappedBy: 'idReferencias')]
+     * #[@ORM\OneToMany(targetEntity: Product::class, mappedBy: 'idReferencia')]
      */
     private $ticket;
 

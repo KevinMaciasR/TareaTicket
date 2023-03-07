@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gerente{% endblock %}
+
+{% block body %}
+    <h1>Gerente</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+            </tr>
+            <tr>
+                <th>Bienvenido: </th>
+                <td>{{ gerente.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Cedula</th>
+                <td>{{ gerente.cedula }}</td>
+            </tr>
+        </tbody>
+    </table>
+        <a class="btn btn-secondary"  href="{{ path('app_gerente_salir') }}" >Salir</a>
+         <a class="btn btn-secondary"  href="{{ path('app_gerente_facturas') }}" >Mostrar Facturas</a>
+
+    
+{% endblock %}

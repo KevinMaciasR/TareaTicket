@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facturador{% endblock %}
+
+{% block body %}
+    <h1>Facturador</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+            </tr>
+            <tr>
+                <th>Bienvenido: </th>
+                <td>{{ facturador.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Cedula</th>
+                <td>{{ facturador.cedula }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a class="btn btn-secondary"  href="{{ path('app_facturador_salir') }}" >Salir</a>    
+    
+        <h1>Seleccionar Ticket a Facturar </h1>
+        
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Ticket</th>
+                <th>ID cliente</th>
+                <th>ID Referencia</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for ticket in tickets %}
+          <tr>
+            <td>{{ ticket.idTicket }}</td>
+            <td>{{ ticket.idCliente }}</td>
+            <td>{{ ticket.idReferencia }}</td>
+            <td>{{ ticket.activo ? 'Yes' : 'No' }}</td>
+             <td>{{ ticket.fecha ? ticket.fecha|date('Y-m-d H:i:s') : '' }}</td>
+            <td>
+                 {% if ticket.activo == true %}
+                    <a  class="btn btn-primary" href="{{ path('app_facturador_crearFactura',{'idTicket': ticket.idTicket , 'idFacturador':facturador.idFacturador}) }}">Crear y Enviar Factura</a>
+                {% elseif ticket.activo == false %}
+                    <a  class="btn btn-primary btn-lg disabled" >Crear y Enviar Factura</a>
+                {% endif %} 
+            </td>
+          <tr>
+        {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+        {% endfor %}
+    </div>
+        
+    </tbody>
+{% endblock %}

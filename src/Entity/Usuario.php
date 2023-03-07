@@ -6,12 +6,11 @@ use App\Repository\UsuarioRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 
-class Usuario
-{
+class Usuario {
+    
+    private $usuario;
 
-    private string $usuario;
-
-    private string $clave;
+    private $clave;
 
     public function getusuario(): ?string
     {
@@ -21,9 +20,9 @@ class Usuario
     {
         return $this->clave;
     }
-    public function setusuario(string $clave): self
+    public function setusuario(string $usuario): self
     {
-        $this->clave = $clave;
+        $this->usuario = $usuario;
 
         return $this;
     }
@@ -34,3 +33,4 @@ class Usuario
         return $this;
     }
 }
+?>

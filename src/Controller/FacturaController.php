@@ -30,28 +30,6 @@ class FacturaController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_factura_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $factura = new Factura();
-        $form = $this->createForm(FacturaType::class, $factura);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($factura);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_factura_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('factura/new.html.twig', [
-            'factura' => $factura,
-            'form' => $form,
-        ]);
-    }
-
-    /**
      * @Route("/{idFactura}", name="app_factura_show", methods={"GET"})
      */
     public function show(Factura $factura): Response
