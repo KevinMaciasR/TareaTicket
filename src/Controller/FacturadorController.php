@@ -63,13 +63,13 @@ class FacturadorController extends AbstractController
         $facturador = new Facturador();
         $form = $this->createForm(Facturador1Type::class, $facturador);
         $form->handleRequest($request);
-        $tickets = $entityManager
-            ->getRepository(Ticket::class)
-            ->findAll();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($facturador);
             $entityManager->flush();
-                        
+            $tickets = $entityManager
+            ->getRepository(Ticket::class)
+            ->findAll();       
             return $this->render('facturador/PortadaFacturador.html.twig',[
                 'facturador' => $facturador,
                 'tickets'=> $tickets
@@ -81,17 +81,6 @@ class FacturadorController extends AbstractController
         return $this->renderForm('facturador/new.html.twig', [
             'facturador' => $facturador,
             'form' => $form,
-        ]);
-    }
-
-
-    /**
-      * @Route("/salir", name="app_facturador_salir")
-      */
-    public function salirfacturador(): Response
-    {   
-        return $this->render('usuario/index.html.twig', [
-            'controller_name' => 'UsuarioController',
         ]);
     }
 
@@ -108,7 +97,7 @@ class FacturadorController extends AbstractController
         $tickets = $entityManager
             ->getRepository(Ticket::class)
             ->findAll();
-        $factura = new Factura($ticket->getIdCliente(), $facturador->getIdFacturador(), $referencia->getTipotrabajo(), $referencia->getPreciohora()*$ticket->gethorasInvertidas()); //mutipicaicon entre el precio por hora y las horas invertidas
+        $factura = new Factura( $facturador->getIdFacturador(), $ticket->getIdCliente(), $referencia->getTipotrabajo(), $referencia->getPreciohora()*$ticket->gethorasInvertidas()); //mutipicaicon entre el precio por hora y las horas invertidas
         $entityManager->persist($factura);
         $entityManager->flush();  
         return $this->render('facturador/PortadaFacturador.html.twig',[
@@ -117,6 +106,15 @@ class FacturadorController extends AbstractController
         ]);  
     }
 
+    /**
+      * @Route("/salir", name="app_facturador_salir")
+      */
+      public function salirfacturador(): Response
+      {   
+          return $this->render('usuario/index.html.twig', [
+              'controller_name' => 'UsuarioController',
+          ]);
+      }
 
 
 

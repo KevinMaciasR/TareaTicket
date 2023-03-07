@@ -64,7 +64,7 @@ class Ticket
         $this->idReferencia=$idReferencia;
         $this->horasInvertidas=$horasInvertidas;
         $this->activo= true;
-        $this->fecha=new \DateTime();;
+        $this->fecha=new \DateTime();
         
     }
 

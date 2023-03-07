@@ -49,6 +49,7 @@ class ClienteController extends AbstractController
                     $facturas = $entityManager
                     ->getRepository(Factura::class)
                     ->findBy(array( 'idCliente'=> $cliente->getIdCliente()));
+
                     return $this->render('cliente/PortadaCliente.html.twig',[
                         'cliente' => $cliente,
                         'facturas' => $facturas
@@ -87,9 +88,10 @@ class ClienteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($cliente);
             $entityManager->flush();
-
+            $facturas =null;
             return $this->render('cliente/PortadaCliente.html.twig',[
                 'cliente' => $cliente,
+                'facturas' => $facturas
             ]);
         }
 
