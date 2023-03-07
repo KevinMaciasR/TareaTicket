@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Personaltecnico;
+use App\Entity\Ticket;
 use App\Form\PersonaltecnicoType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,18 +16,24 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PersonaltecnicoController extends AbstractController
 {
-    /**
-     * @Route("/", name="app_personaltecnico_index", methods={"GET"})
+    /**     * @Route("/inicio", name="app_personaltecnico_inicio", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $personaltecnicos = $entityManager
+        $personaltecnico = $entityManager
             ->getRepository(Personaltecnico::class)
+            ->findOneBy(array( 
+                'usuario' => 'mbz32',
+                'clave' => '12345' ));
+        if($personaltecnico != null ){
+            $tickets = $entityManager
+            ->getRepository(Ticket::class)
             ->findAll();
-
-        return $this->render('personaltecnico/index.html.twig', [
-            'personaltecnicos' => $personaltecnicos,
+        return $this->render('personaltecnico/PortadaPersonalTecnico.html.twig', [
+            'personaltecnico' => $personaltecnico,
+            'tickets' => $tickets
         ]);
+    }
     }
 
     /**
@@ -41,8 +48,13 @@ class PersonaltecnicoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($personaltecnico);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_personaltecnico_index', [], Response::HTTP_SEE_OTHER);
+            $tickets = $entityManager
+            ->getRepository(Ticket::class)
+            ->findAll();
+            return $this->render('personaltecnico/PortadaPersonalTecnico.html.twig', [
+                'personaltecnico' => $personaltecnico,
+                'tickets' => $tickets
+            ]);
         }
 
         return $this->renderForm('personaltecnico/new.html.twig', [
@@ -50,6 +62,33 @@ class PersonaltecnicoController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /**
+      * @Route("/salir", name="app_tecnico_salir")
+      */
+      public function salirPersonalTecnico(): Response
+      {   
+          return $this->render('usuario/index.html.twig', [
+              'controller_name' => 'UsuarioController',
+          ]);
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @Route("/{idTecnico}", name="app_personaltecnico_show", methods={"GET"})

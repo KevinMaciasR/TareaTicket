@@ -37,6 +37,13 @@ class Ticket
     private $idReferencia;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="horasInvertidas", type="integer", nullable=false)
+     */
+    private $horasInvertidas;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="Activo", type="boolean", nullable=false)
@@ -52,9 +59,10 @@ class Ticket
     
 
 
-    public function __construct($idCliente, $idReferencia)
+    public function __construct($idCliente, $idReferencia, $horasInvertidas)
     {   $this->idCliente=$idCliente;
         $this->idReferencia=$idReferencia;
+        $this->horasInvertidas=$horasInvertidas;
         $this->activo= true;
         $this->fecha=new \DateTime();;
         
@@ -104,7 +112,10 @@ class Ticket
     {
         return $this->idReferencia;
     }
-
+    public function gethorasInvertidas(): ?int
+    {
+        return $this->horasInvertidas;
+    }
 
 }
 ?>

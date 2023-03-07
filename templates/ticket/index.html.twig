@@ -37,6 +37,7 @@
             <tr>
                 <th>Tipo de Trabajo</th>
                 <th>Precio/Hora</th>
+                <th>HorasInvertidas</th>
                 <th>Accion</th>
             </tr>
         </thead>
@@ -45,8 +46,9 @@
             <tr>
                 <td>{{ referenciasprecio.tipotrabajo }} </td>
                 <td>{{ referenciasprecio.preciohora }} </td>
+                <td>{{ horasInvertidas}} </td>
                 <td>
-                    <a class="btn btn-primary" href="{{ path('app_ticket_new',{'idCliente': cliente.idCliente, 'tipotrabajo':referenciasprecio.tipotrabajo }) }}">Crear Ticket</a>
+                    <a class="btn btn-primary" href="{{ path('app_ticket_new',{'idCliente': cliente.idCliente, 'tipotrabajo':referenciasprecio.tipotrabajo, 'horasInvertidas': horasInvertidas }) }}">Crear Ticket</a>
                 </td>
             </tr>  
         {% else %}

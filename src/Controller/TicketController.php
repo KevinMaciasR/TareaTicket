@@ -33,12 +33,12 @@ class TicketController extends AbstractController
     }
 
     /**
-     * @Route("/{idCliente}/{tipotrabajo}", name="app_ticket_new", methods={"GET", "POST"})
+     * @Route("/{idCliente}/{tipotrabajo}/{horasInvertidas}", name="app_ticket_new", methods={"GET", "POST"})
      * 
      */
-    public function new(Cliente $cliente, Referenciasprecios $referencia, EntityManagerInterface $entityManager): Response
+    public function new(Cliente $cliente, Referenciasprecios $referencia, int $horasInvertidas, EntityManagerInterface $entityManager): Response
     {
-        $ticket = new Ticket($cliente->getIdCliente(), $referencia->getIdReferencia());
+        $ticket = new Ticket($cliente->getIdCliente(), $referencia->getIdReferencia(), $horasInvertidas);
         $entityManager->persist($ticket);
         $entityManager->flush();       
         $facturas = $entityManager
@@ -47,7 +47,7 @@ class TicketController extends AbstractController
 
         return $this->renderForm('cliente/PortadaCliente.html.twig', [
             'cliente' => $cliente,
-            'facturas' => $facturas
+            'facturas' => $facturas,
         ]);
     }
        

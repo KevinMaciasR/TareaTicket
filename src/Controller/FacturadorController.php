@@ -37,6 +37,9 @@ class FacturadorController extends AbstractController
             ->getRepository(Ticket::class)
             ->findAll();
         if($facturador != null ){
+            $tickets = $entityManager
+            ->getRepository(Ticket::class)
+            ->findAll();
             return $this->render('facturador/PortadaFacturador.html.twig',[
                 'facturador' => $facturador,
                 'tickets'=> $tickets
@@ -105,7 +108,7 @@ class FacturadorController extends AbstractController
         $tickets = $entityManager
             ->getRepository(Ticket::class)
             ->findAll();
-        $factura = new Factura($ticket->getIdCliente(), $facturador->getIdFacturador(), $referencia->getTipotrabajo(), $referencia->getPreciohora()*1.12); //con un recargo del 12%, dadas las horas invertidas
+        $factura = new Factura($ticket->getIdCliente(), $facturador->getIdFacturador(), $referencia->getTipotrabajo(), $referencia->getPreciohora()*$ticket->gethorasInvertidas()); //mutipicaicon entre el precio por hora y las horas invertidas
         $entityManager->persist($factura);
         $entityManager->flush();  
         return $this->render('facturador/PortadaFacturador.html.twig',[

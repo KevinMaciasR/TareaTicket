@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personaltecnico index{% endblock %}
+
+{% block body %}
+    <h1>Personaltecnico index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Bienvenido </th>
+                <th>Cedula</th>
+                <th>Usuario</th>
+                <th>Clave</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>{{ personaltecnico.nombre }}</td>
+                <td>{{ personaltecnico.cedula }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Personal Tecnico - Tickets</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdTicket</th>
+                <th>IdCliente</th>
+                <th>Activo</th>
+                <th>Fecha</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+               <tr>
+                <td>{{ ticket.idTicket }}</td>
+                <td>{{ ticket.idCliente }}</td>
+                <td>{{ ticket.activo ? 'Yes' : 'No' }}</td>
+                <td>{{ ticket.fecha ? ticket.fecha|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+            {% endfor %}
+                <td colspan="5">No hay Tickets</td>
+            </tr>
+        </tbody>
+        <a class="btn btn-secondary"  href="{{ path('app_tecnico_salir') }}" >Salir</a>    
+{% endblock %}

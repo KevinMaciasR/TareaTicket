@@ -106,14 +106,15 @@ class ClienteController extends AbstractController
         $referenciasprecios = $entityManager
         ->getRepository(Referenciasprecios::class)
         ->findAll();
-        
+        $horasInvertidas=rand(1,5); //simula las horas invertidas que asigna el personal tecnico al momento de establecer el trabajo a realizar.
         $tickets = $entityManager
             ->getRepository(Ticket::class)
             ->findBy(array('idCliente' => $cliente->getIdCliente()));
         return $this->render('ticket/index.html.twig', [
             'cliente' => $cliente,
             'tickets' => $tickets,
-            'referenciasprecios' => $referenciasprecios
+            'referenciasprecios' => $referenciasprecios,
+            'horasInvertidas' => $horasInvertidas
 
         ]);
     }
