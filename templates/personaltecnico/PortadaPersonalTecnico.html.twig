@@ -3,7 +3,7 @@
 {% block title %}Personaltecnico index{% endblock %}
 
 {% block body %}
-    <h1>Personaltecnico index</h1>
+    <h1 class="p-3 mb-2 bg-primary text-white" >Personaltecnico </h1>
 
     <table class="table">
         <thead>
@@ -21,7 +21,7 @@
             </tr>
         </tbody>
     </table>
-    <h1>Personal Tecnico - Tickets</h1>
+    <h1 class="p-3 mb-2 bg-primary text-white" >Personal Tecnico - Tickets</h1>
     <table class="table">
         <thead>
             <tr>
@@ -46,5 +46,5 @@
                 <td colspan="5">No hay Tickets</td>
             </tr>
         </tbody>
-        <a class="btn btn-secondary"  href="{{ path('app_tecnico_salir') }}" >Salir</a>    
+        <a class="btn btn-danger"  href="{{ path('app_tecnico_salir') }}" >Salir</a>    
 {% endblock %}

@@ -17,7 +17,6 @@ class PersonaltecnicoType extends AbstractType
             ->add('usuario')
             ->add('clave')
             ->add('correo')
-            ->add('rol')
         ;
     }
 

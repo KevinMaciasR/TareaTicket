@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Personaltecnico;
 use App\Entity\Ticket;
+use App\Entity\Usuario;
 use App\Form\PersonaltecnicoType;
+use App\Form\UsuarioType;;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,25 +18,39 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PersonaltecnicoController extends AbstractController
 {
-    /**     * @Route("/inicio", name="app_personaltecnico_inicio", methods={"GET"})
+    /**     * @Route("/inicio", name="app_personaltecnico_inicio")
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $personaltecnico = $entityManager
+        $usuario = new Usuario(); 
+        $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($usuario->getusuario() != null){
+             $personaltecnico = $entityManager
             ->getRepository(Personaltecnico::class)
             ->findOneBy(array( 
-                'usuario' => 'mbz32',
-                'clave' => '12345' ));
+                'usuario' => $usuario->getusuario(),
+                'clave' => $usuario->getclave() ));
+                /*'usuario' => 'mbz32',
+                'clave' => '12345' ));*/
         if($personaltecnico != null ){
             $tickets = $entityManager
             ->getRepository(Ticket::class)
             ->findAll();
-        return $this->render('personaltecnico/PortadaPersonalTecnico.html.twig', [
+             return $this->render('personaltecnico/PortadaPersonalTecnico.html.twig', [
             'personaltecnico' => $personaltecnico,
             'tickets' => $tickets
         ]);
     }
-    }
+
+    }}
+    return $this->renderForm('usuario/usuario.html.twig',[
+        'controller_name' => 'UsuarioController', 
+            'form' => $form,
+            'rol' => 2 //identificador de rol de gerente
+        ]);
+}
 
     /**
      * @Route("/new", name="app_personaltecnico_new", methods={"GET", "POST"})

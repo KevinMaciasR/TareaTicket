@@ -37,18 +37,19 @@ class UsuarioController extends AbstractController
      */
     public function iniciocliente(Request $request,EntityManagerInterface $entityManager): Response
     {           
-        $usuario = new Usuario();
-        $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
+        $usuarioGeneral = new Usuario();
+        $form = $this->createForm(UsuarioType::class, $usuarioGeneral); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            if($usuarioGeneral->getusuario() != null){
             return $this->render('usuario/Bienvenida.html.twig', [
-                'usuario'=>$usuario,
+                'usuarioGeneral'=>$usuarioGeneral,
                 'rol' => 4]          
-        );
+        );}
     }return $this->renderForm('usuario/usuario.html.twig',[
     'controller_name' => 'UsuarioController', 
-        'usuario'=> $usuario,
+       // 'usuarioGeneral'=> $usuarioGeneral,
         'form' => $form,
         'rol' => 4 //identificador de rol
     ]);
@@ -58,18 +59,18 @@ class UsuarioController extends AbstractController
      */
     public function iniciogerente(Request $request): Response
     {
-        $usuario = new Usuario(); 
-        $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
+        $usuarioGeneral = new Usuario(); 
+        $form = $this->createForm(UsuarioType::class, $usuarioGeneral); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->render('usuario/Bienvenida.html.twig', [
-                'usuario'=>$usuario,
+                'usuarioGeneral'=>$usuarioGeneral,
                 'rol' => 1]          
         );
     }return $this->renderForm('usuario/usuario.html.twig',[
     'controller_name' => 'UsuarioController', 
-        'usuario'=> $usuario,
+        //'usuarioGeneral'=> $usuarioGeneral,
         'form' => $form,
         'rol' => 1 //identificador de rol de gerente
     ]);
@@ -79,18 +80,18 @@ class UsuarioController extends AbstractController
      */
     public function iniciopersonalTecnico(Request $request): Response
     {
-        $usuario = new Usuario(); 
-        $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
+        $usuarioGeneral = new Usuario(); 
+        $form = $this->createForm(UsuarioType::class, $usuarioGeneral); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->render('usuario/Bienvenida.html.twig', [
-                'usuario'=>$usuario,
+                'usuarioGeneral'=>$usuarioGeneral,
                 'rol'=> 2]   
         );
     }return $this->renderForm('usuario/usuario.html.twig',[
     'controller_name' => 'UsuarioController', 
-        'usuario'=> $usuario,
+        'usuarioGeneral'=> $usuarioGeneral,
         'form' => $form,
         'rol' => 2 //identificador de rol de gerente
     ]);
@@ -100,18 +101,18 @@ class UsuarioController extends AbstractController
      */
     public function iniciofacturador(Request $request): Response
     {
-        $usuario = new Usuario(); 
-        $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
+        $usuarioGeneral = new Usuario(); 
+        $form = $this->createForm(UsuarioType::class, $usuarioGeneral); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->render('usuario/Bienvenida.html.twig', [
-                'usuario'=>$usuario,
+                'usuarioGeneral'=>$usuarioGeneral,
                 'rol'=> 3]
         );
     }return $this->renderForm('usuario/usuario.html.twig',[
     'controller_name' => 'UsuarioController', 
-        'usuario'=> $usuario,
+        'usuarioGeneral'=> $usuarioGeneral,
         'form' => $form,
         'rol' => 3 //identificador de rol de gerente
     ]);

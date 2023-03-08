@@ -17,7 +17,6 @@ class Gerente1Type extends AbstractType
             ->add('usuario')
             ->add('clave')
             ->add('correo')
-            ->add('rol')
         ;
     }
 

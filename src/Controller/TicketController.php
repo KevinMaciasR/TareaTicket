@@ -6,10 +6,8 @@ use App\Entity\Cliente;
 use App\Entity\Factura;
 use App\Entity\Ticket;
 use App\Entity\Referenciasprecios;
-use App\Form\TicketType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -52,10 +50,6 @@ class TicketController extends AbstractController
     }
        
 
-
-
-
-
     
     /**
      * @Route("/{idTicket}", name="app_ticket_show", methods={"GET"})
@@ -92,13 +86,7 @@ class TicketController extends AbstractController
             'form' => $form,
         ]);
     }*/
-
-
-
-
-
-
-
+    
     ///**
     // * @Route("/{idTicket}", name="app_ticket_delete", methods={"POST"})
     // */

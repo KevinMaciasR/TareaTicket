@@ -6,6 +6,8 @@ use App\Entity\Factura;
 use App\Entity\Facturador;
 use App\Entity\Referenciasprecios;
 use App\Entity\Ticket;
+use App\Form\UsuarioType;
+use App\Entity\Usuario;
 use App\Form\Facturador1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\PseudoTypes\False_;
@@ -21,22 +23,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class FacturadorController extends AbstractController
 {
     /**
-     * @Route("/inicio", name="app_facturador_inicio", methods={"GET"})
+     * @Route("/inicio", name="app_facturador_inicio")
      */
-    public function index(EntityManagerInterface $entityManager): Response
-    {  
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    {   $usuario = new Usuario(); 
+        $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($usuario->getusuario() != null){
         $facturador = $entityManager
         ->getRepository(Facturador::class)
         ->findOneBy(array( 
-            /*'usuario' => $usuario->getusuario(),
-            'clave' => $usuario->getclave() ));*/
+            'usuario' => $usuario->getusuario(),
+            'clave' => $usuario->getclave() ));
             //Valor de prueba Quemado
-            'usuario' => 'Josbaque',
-            'clave' => '12345' ));
-        $tickets = $entityManager
+            /*'usuario' => 'Josbaque',
+            'clave' => '12345' ));*/
+        if($facturador != null ){
+            $tickets = $entityManager
             ->getRepository(Ticket::class)
             ->findAll();
-        if($facturador != null ){
             $tickets = $entityManager
             ->getRepository(Ticket::class)
             ->findAll();
@@ -45,14 +51,13 @@ class FacturadorController extends AbstractController
                 'tickets'=> $tickets
             ]);
         }
-    /* }catch(Exception $e){
-        echo 'Usuario Incorrecto', $e->getMessage();
-    }  
-}*/
-        return $this->render('usuario/index.html.twig', [
-            'controller_name' => 'UsuarioController',
-]);
-
+   
+}    }
+        return $this->renderForm('usuario/usuario.html.twig',[
+            'controller_name' => 'UsuarioController', 
+                'form' => $form,
+                'rol' => 3 //identificador de rol de gerente
+    ]);
     }
 
     /**
@@ -133,17 +138,18 @@ class FacturadorController extends AbstractController
     /**
      * @Route("/{idFacturador}", name="app_facturador_show", methods={"GET"})
      */
-    public function show(Facturador $facturador): Response
+    /*public function show(Facturador $facturador): Response
     {
         return $this->render('facturador/show.html.twig', [
             'facturador' => $facturador,
         ]);
     }
+    */
 
     /**
      * @Route("/{idFacturador}/edit", name="app_facturador_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Facturador $facturador, EntityManagerInterface $entityManager): Response
+    /*public function edit(Request $request, Facturador $facturador, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(Facturador1Type::class, $facturador);
         $form->handleRequest($request);
@@ -159,11 +165,11 @@ class FacturadorController extends AbstractController
             'form' => $form,
         ]);
     }
-
+*/
     /**
      * @Route("/{idFacturador}", name="app_facturador_delete", methods={"POST"})
      */
-    public function delete(Request $request, Facturador $facturador, EntityManagerInterface $entityManager): Response
+    /*public function delete(Request $request, Facturador $facturador, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$facturador->getIdFacturador(), $request->request->get('_token'))) {
             $entityManager->remove($facturador);
@@ -171,6 +177,6 @@ class FacturadorController extends AbstractController
         }
 
         return $this->redirectToRoute('app_facturador_index', [], Response::HTTP_SEE_OTHER);
-    }
+    }*/
 }
 ?>

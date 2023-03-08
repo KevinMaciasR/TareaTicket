@@ -6,12 +6,10 @@ use App\Entity\Cliente;
 use App\Form\UsuarioType;
 use App\Entity\Factura;
 use App\Entity\Ticket;
+use App\Entity\Usuario;
 use App\Entity\Referenciasprecios;
 use App\Form\Cliente1Type; //pr hacer uso de la funcion que se encuentra en Cliente1type
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use App\Form\loginCliente;
-use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,44 +22,40 @@ class ClienteController extends AbstractController
 {   
 
     /**
-     * @Route("/inicio", name="app_cliente_inicio", methods={"GET"})
+     * @Route("/inicio", name="app_cliente_inicio")
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {  
-         /*  //cree un objeto llamado usuario, para poder guardar alli el usurio y clave que el usuario ingresaba para inciar sesion
+          //cree un objeto llamado usuario, para poder guardar alli el usurio y clave que el usuario ingresaba para inciar sesion
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
-        
         if ($form->isSubmitted() && $form->isValid()) {
-            try{*/
-
+            if($usuario->getusuario() != null){
                 $cliente = $entityManager
                 ->getRepository(Cliente::class)
                 ->findOneBy(array( 
-                    /*'usuario' => $usuario->getusuario(),
-                    'clave' => $usuario->getclave() ));*/
+                    'usuario' => $usuario->getusuario(),
+                    'clave' => $usuario->getclave() ));
                     //Valor de prueba Quemado
-                    'usuario' => 'Js232',
-                    'clave' => '12345' ));
+                    /*'usuario' => 'Js232',
+                    'clave' => '12345' ));*/
                 if($cliente != null ){
                     //Busqueda de Facturas del cliente
                     $facturas = $entityManager
                     ->getRepository(Factura::class)
                     ->findBy(array( 'idCliente'=> $cliente->getIdCliente()));
-
                     return $this->render('cliente/PortadaCliente.html.twig',[
                         'cliente' => $cliente,
                         'facturas' => $facturas
-                    ]);
+                    ]);  }
                 }
-            /* }catch(Exception $e){
-                echo 'Usuario Incorrecto', $e->getMessage();
-            }  
-        }*/
-        return $this->render('usuario/index.html.twig', [
-            'controller_name' => 'UsuarioController',
-        ]);
+            }                
+        return $this->renderForm('usuario/usuario.html.twig',[
+              'controller_name' => 'UsuarioController', 
+                       // 'usuarioGeneral'=> $usuarioGeneral,
+                  'form' => $form,
+                    'rol' => 4]);
         }
 
      /**

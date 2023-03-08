@@ -3,33 +3,40 @@
 {% block title %}Hello UsuarioController!{% endblock %}
 
 {% block body %}
+<h1 class="p-3 mb-4 bg-secondary text-white text-center">inicio de Sesion</h1>
     <div class="container">
         <div class="row">
-            <div class="login-form bg-light mt-4 p-4">
+            <div class="login-form bg-light mt-4 p-4 " >
                 {{form_start(form)}}
                 <div class="form-group row">                 
                     {{form_label(form.usuario)}}
                     {{ form_widget(form.usuario) }}
+
                     {{form_label(form.clave)}}
                     {{ form_widget(form.clave) }}
-                    <button class="btn">{{ button_label|default('Ingresar') }}</button>
+
+                    <button class="btn btn-dark">{{ button_label|default('Ingresar') }}</button>
                 </div>   
                 {{ form_end(form) }}    
-            <tbody>
-                {% if rol == 1 %}
-                        <a class="btn btn-secondary" href="{{path('app_gerente_new')}}">Registrar Gerente</a>
-                {% elseif rol == 2 %}
-                        <a class="btn btn-secondary" href="{{path('app_personaltecnico_new')}}">Registrar Tecnico</a>
-                {% elseif rol == 3 %}
-                        <a class="btn btn-secondary" href="{{path('app_facturador_new')}}">Registrar Facturador</a>
-                {% elseif rol == 4 %}
-                        <a class="btn btn-secondary" href="{{path('app_cliente_new')}}">Registrar Cliente</a>          
-                {% else %}
-                        <th>Rol no enviado</th>
-                {% endif %}     
-            <a class="btn btn-secondary"  href="{{ path('app_usuario') }}">Regresar</a>           
-            </tbody>
         </div>
+        <tbody>
+            <div class="btn-group btn-group-justified"> 
+                    {% if rol == 1 %}
+                            <a class="btn btn-secondary" role="button" href="{{path('app_gerente_new')}}">Registrar Gerente</a>
+                    {% elseif rol == 2 %}
+                            <a class="btn btn-secondary" href="{{path('app_personaltecnico_new')}}">Registrar Tecnico</a>
+                    {% elseif rol == 3 %}
+                            <a class="btn btn-secondary" href="{{path('app_facturador_new')}}">Registrar Facturador</a>
+                    {% elseif rol == 4 %}
+                            <a class="btn btn-secondary" role="button" href="{{path('app_cliente_new')}}">Registrar Cliente</a>          
+                    {% else %}
+                            <th>Rol no enviado</th>
+                    {% endif %}     
+                <a class="btn btn-secondary"  href="{{ path('app_usuario') }}">Regresar</a>           
+            </div>   
+        </tbody>
+
+
         {#<a href="{{ path('app_cliente_show', {'idCliente': cliente.idCliente}) }}">show</a>#}
     </div>
 {% endblock %}   

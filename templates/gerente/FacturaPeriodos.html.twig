@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Factura index{% endblock %}
+
+{% block body %}
+    <th>Facturas: </th>  
+    <tbody>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group me-2" role="group" aria-label="First group">
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'01'}) }}" >Enero</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'02'}) }}" >Febrero</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'03'}) }}" >Marzo</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'04'}) }}" >Abril</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'05'}) }}" >Mayo</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'06'}) }}" >Junio</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'07'}) }}" >Julio</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'08'}) }}" >Agosto</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'09'}) }}" >Septiembre</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'10'}) }}" >Octubre</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'11'}) }}" >Noviembre</a>
+                <a  class="btn btn-primary" href="{{path('app_gerente_facturas',{'mes':'12'}) }}" >Diciembre</a>
+                <a class="btn btn-secondary"  href="{{ path('app_gerente_salir') }}" >Salir</a>
+            </div>
+        </div>   
+    </tbody>
+    <th> Facturas por periodo </th>  
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdFactura</th>
+                <th>IdFacturador</th>
+                <th>IdCliente</th>
+                <th>Tipotrabajo</th>
+                <th>Precio</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for factura in facturas %}
+                <tr>
+                     <td>{{ factura.idFactura }}</td>
+                    <td>{{ factura.idFacturador }}</td>
+                    <td>{{ factura.idCliente }}</td>
+                    <td>{{ factura.tipotrabajo }}</td>
+                    <td>{{ factura.precio }}</td>
+                    <td>{{ factura.fecha ? factura.fecha|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>    
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

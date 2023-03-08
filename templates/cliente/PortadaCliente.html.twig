@@ -3,7 +3,7 @@
 {% block title %}Cliente{% endblock %}
 
 {% block body %}
-    <h1>Cliente</h1>
+    <h1 class="p-3 mb-2 bg-primary text-white" >Cliente</h1>
     <table class="table">
         <tbody>
             <tr>
@@ -18,7 +18,7 @@
             </tr>
         </tbody>
     </table>
-    <h1>Facturas del Cliente</h1>
+    <h1 class="p-3 mb-2 bg-primary text-white" >Facturas del Cliente</h1>
     <table class="table">
         <thead>
             <tr>
@@ -51,5 +51,5 @@
         {% endfor %}
         </tbody>
     <a class="btn btn-secondary"  href="{{path('app_cliente_Cargarticket', {'idCliente':cliente.idCliente})}}" >Cargar Ticket</a>
-    <a class="btn btn-secondary"  href="{{ path('app_cliente_salir') }}" >Salir</a>    
+    <a class="btn btn-danger"  href="{{ path('app_cliente_salir') }}" >Salir</a>    
 {% endblock %}

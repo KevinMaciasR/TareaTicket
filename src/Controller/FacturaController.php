@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Factura;
-use App\Form\FacturaType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +17,7 @@ class FacturaController extends AbstractController
     /**
      * @Route("/", name="app_factura_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    /*public function index(EntityManagerInterface $entityManager): Response
     {
         $facturas = $entityManager
             ->getRepository(Factura::class)
@@ -27,22 +26,22 @@ class FacturaController extends AbstractController
         return $this->render('factura/index.html.twig', [
             'facturas' => $facturas,
         ]);
-    }
+    }*/
 
     /**
      * @Route("/{idFactura}", name="app_factura_show", methods={"GET"})
      */
-    public function show(Factura $factura): Response
+    /*public function show(Factura $factura): Response
     {
         return $this->render('factura/show.html.twig', [
             'factura' => $factura,
         ]);
-    }
+    }*/
 
     /**
      * @Route("/{idFactura}/edit", name="app_factura_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Factura $factura, EntityManagerInterface $entityManager): Response
+    /*public function edit(Request $request, Factura $factura, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(FacturaType::class, $factura);
         $form->handleRequest($request);
@@ -57,12 +56,12 @@ class FacturaController extends AbstractController
             'factura' => $factura,
             'form' => $form,
         ]);
-    }
+    }*/
 
     /**
      * @Route("/{idFactura}", name="app_factura_delete", methods={"POST"})
      */
-    public function delete(Request $request, Factura $factura, EntityManagerInterface $entityManager): Response
+    /*public function delete(Request $request, Factura $factura, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$factura->getIdFactura(), $request->request->get('_token'))) {
             $entityManager->remove($factura);
@@ -70,5 +69,6 @@ class FacturaController extends AbstractController
         }
 
         return $this->redirectToRoute('app_factura_index', [], Response::HTTP_SEE_OTHER);
-    }
+    }*/
 }
+?>

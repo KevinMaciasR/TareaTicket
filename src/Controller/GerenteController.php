@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Factura;
 use App\Entity\Gerente;
+use App\Entity\Usuario;
 use App\Form\Gerente1Type;
+use App\Form\UsuarioType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,49 +21,45 @@ class GerenteController extends AbstractController
 {
 
     /**
-     * @Route("/inicio", name="app_gerente_inicio", methods={"GET"})
+     * @Route("/inicio", name="app_gerente_inicio")
      */
     //Busqueda de facturas por fecha por parte del gerente
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-                 /*  //cree un objeto llamado usuario, para poder guardar alli el usurio y clave que el usuario ingresaba para inciar sesion
+         //cree un objeto llamado usuario, para poder guardar alli el usurio y clave que el usuario ingresaba para inciar sesion
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
-        
         if ($form->isSubmitted() && $form->isValid()) {
-            try{*/
-
+            if($usuario->getusuario() != null){
                 $gerente = $entityManager
                 ->getRepository(Gerente::class)
                 ->findOneBy(array( 
-                    /*'usuario' => $usuario->getusuario(),
-                    'clave' => $usuario->getclave() ));*/
+                    'usuario' => $usuario->getusuario(),
+                    'clave' => $usuario->getclave() ));
                     //Valor de prueba Quemado
-                    'usuario' => 'sof789',
-                    'clave' => '12345' ));
+                    /*'usuario' => 'sof789',
+                    'clave' => '12345' ));*/
                 if($gerente != null ){
+                    $facturas = $entityManager
+                    ->getRepository(Factura::class)
+                    ->findAll();
                     return $this->render('gerente/PortadaGerente.html.twig',[
                         'gerente' => $gerente,
+                        'facturas'=> $facturas,
+                        'valor'=> 1
                     ]);
                 }
-            /* }catch(Exception $e){
-                echo 'Usuario Incorrecto', $e->getMessage();
-            }  
-        }*/
-        return $this->render('usuario/index.html.twig', [
-            'controller_name' => 'UsuarioController',
+  
+            }
+        }
+        return $this->renderForm('usuario/usuario.html.twig',[
+            'controller_name' => 'UsuarioController', 
+                //'usuarioGeneral'=> $usuarioGeneral,
+                'form' => $form,
+                'rol' => 1 //identificador de rol de gerente
         ]);
-
-        /*
-        //{ obtener datos por fecha}
-        $factura = $entityManager
-            ->getRepository(Factura::class)->findBy(['fecha'=> $fecha]); 
-
-        return $this->render('gerente/index.html.twig', [
-            'gerentes' => $factura,
-        ]);*/
 
     }
     /**
@@ -77,8 +75,13 @@ class GerenteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($gerente);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_gerente_index', [], Response::HTTP_SEE_OTHER);
+            $facturas = $entityManager
+            ->getRepository(Factura::class)
+            ->findAll();
+            return $this->render('gerente/PortadaGerente.html.twig',[
+                'gerente' => $gerente,
+                'facturas'=> $facturas
+            ]);
         }
 
         return $this->renderForm('gerente/new.html.twig', [
@@ -87,9 +90,9 @@ class GerenteController extends AbstractController
         ]);
     }
 
-     /**
-      * @Route("/salir", name="app_gerente_salir")
-      */
+    /**
+    * @Route("/salir", name="app_gerente_salir")
+    */
         public function salirgerente(): Response
         {   
             return $this->render('usuario/index.html.twig', [
@@ -97,13 +100,51 @@ class GerenteController extends AbstractController
             ]);
         }
     
-        /**
-     * @Route("/", name="app_gerente_facturas", methods={"GET"})
-     */
-    public function mostrarFacturas(){
+    /**
+    * @Route("/facturap", name="app_gerente_facturaP")
+    */
+      public function facturas(): Response
+      { 
+        $facturafiltradas =   null;
+        return $this->render('gerente/FacturaPeriodos.html.twig',[
+            'facturas'=> $facturafiltradas
+        ]);
+      }
 
+    /**
+    * @Route("/{mes}", name="app_gerente_facturas", methods={"GET"})
+    */
+    public function mostrarFacturas(string $mes, EntityManagerInterface $entityManager)
+    {
+        $facturas = $entityManager
+        ->getRepository(Factura::class)
+        ->findAll();
+        $facturafiltradas = array();
+        
+        $cont=-1;
+        foreach( $facturas as $factura){    
+            if ((strcmp($factura->getFecha()->format('m'), $mes)===0)){ //validacion de filtro de fecha
+                $cont++;
+                $facturafiltradas[$cont]=$factura;
+                //$valor[$cont]=[$factura->getFecha()->format('m')];
+            }
+        }
+        return $this->render('gerente/FacturaPeriodos.html.twig',[
+            'facturas'=> $facturafiltradas,
+            'facturasF' =>$facturas,
+        ]);
 
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
