@@ -6,12 +6,10 @@ use App\Entity\Cliente;
 use App\Form\UsuarioType;
 use App\Entity\Factura;
 use App\Entity\Ticket;
+use App\Entity\Usuario;
 use App\Entity\Referenciasprecios;
 use App\Form\Cliente1Type; //pr hacer uso de la funcion que se encuentra en Cliente1type
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use App\Form\loginCliente;
-use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,55 +22,51 @@ class ClienteController extends AbstractController
 {   
 
     /**
-     * @Route("/inicio", name="app_cliente_inicio", methods={"GET"})
+     * @Route("/inicio", name="app_cliente_inicio")
      */
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {  
-         /*  //cree un objeto llamado usuario, para poder guardar alli el usurio y clave que el usuario ingresaba para inciar sesion
+          //cree un objeto llamado usuario, para poder guardar alli el usurio y clave que el usuario ingresaba para inciar sesion
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario); //aqui llama del archivo Cliente1Type ubicado en la carpeta form
         $form->handleRequest($request);
-        
         if ($form->isSubmitted() && $form->isValid()) {
-            try{*/
-
+            if($usuario->getusuario() != null){
                 $cliente = $entityManager
                 ->getRepository(Cliente::class)
                 ->findOneBy(array( 
-                    /*'usuario' => $usuario->getusuario(),
-                    'clave' => $usuario->getclave() ));*/
+                    'usuario' => $usuario->getusuario(),
+                    'clave' => $usuario->getclave() ));
                     //Valor de prueba Quemado
-                    'usuario' => 'Js232',
-                    'clave' => '12345' ));
+                    /*'usuario' => 'Js232',
+                    'clave' => '12345' ));*/
                 if($cliente != null ){
                     //Busqueda de Facturas del cliente
                     $facturas = $entityManager
                     ->getRepository(Factura::class)
                     ->findBy(array( 'idCliente'=> $cliente->getIdCliente()));
-
                     return $this->render('cliente/PortadaCliente.html.twig',[
                         'cliente' => $cliente,
                         'facturas' => $facturas
-                    ]);
+                    ]);  }
                 }
-            /* }catch(Exception $e){
-                echo 'Usuario Incorrecto', $e->getMessage();
-            }  
-        }*/
-        return $this->render('usuario/index.html.twig', [
-            'controller_name' => 'UsuarioController',
-        ]);
+            }                
+        return $this->renderForm('usuario/usuario.html.twig',[
+              'controller_name' => 'UsuarioController', 
+                       // 'usuarioGeneral'=> $usuarioGeneral,
+                  'form' => $form,
+                    'rol' => 4]);
         }
 
      /**
       * @Route("/salir", name="app_cliente_salir")
       */
-        public function salircliente(): Response
+        /*public function salircliente(): Response
         {   
             return $this->render('usuario/index.html.twig', [
                 'controller_name' => 'UsuarioController',
             ]);
-        }
+        }*/
 
 
     /**
@@ -86,14 +80,26 @@ class ClienteController extends AbstractController
         $cliente->setRol(4);// rol de cliente
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($cliente);
-            $entityManager->flush();
-            $facturas =null;
-            return $this->render('cliente/PortadaCliente.html.twig',[
-                'cliente' => $cliente,
-                'facturas' => $facturas
+            if( $cliente->getUsuario()!= null){
+                //validacion para que no se registren clientes repetidos
+                $correo = $entityManager->getRepository(Cliente::class)
+                ->findBy(array( 'correo'=> $cliente->getCorreo()
+            ));
+                $cedula = $entityManager->getRepository(Cliente::class)
+                ->findBy(array('cedula'=> $cliente->getCedula()
+            ));
+                $usuarioDuplicado = $entityManager->getRepository(Cliente::class)
+                ->findOneBy(array( 'usuario'=>$cliente->getUsuario()
+            ));
+                if(empty($correo) == 1 && empty($cedula) == 1 && empty($usuarioDuplicado)==1){ //condicion para garantizar que el cliente ingresado no se encuentra en la base de datos
+                    $entityManager->persist($cliente);
+                    $entityManager->flush();
+                    $facturas =null;
+                    return $this->render('cliente/PortadaCliente.html.twig',[
+                        'cliente' => $cliente,
+                        'facturas' => $facturas
             ]);
-        }
+        }}}
 
         return $this->renderForm('cliente/new.html.twig', [
             'cliente' => $cliente,
@@ -140,7 +146,7 @@ class ClienteController extends AbstractController
     /**
      * @Route("/{idCliente}/edit", name="app_cliente_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Cliente $cliente, EntityManagerInterface $entityManager): Response
+    /*public function edit(Request $request, Cliente $cliente, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(Cliente1Type::class, $cliente);
         $form->handleRequest($request);
@@ -155,7 +161,7 @@ class ClienteController extends AbstractController
             'cliente' => $cliente,
             'form' => $form,
         ]);
-    }
+    }*/
 
 
 

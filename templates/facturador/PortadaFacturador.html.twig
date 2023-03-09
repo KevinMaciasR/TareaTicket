@@ -3,7 +3,7 @@
 {% block title %}Facturador{% endblock %}
 
 {% block body %}
-    <h1>Facturador</h1>
+    <h1 class="p-3 mb-2 bg-primary text-white" >Facturador</h1>
     <table class="table">
         <tbody>
             <tr>
@@ -19,9 +19,9 @@
         </tbody>
     </table>
     
-    <a class="btn btn-secondary"  href="{{ path('app_facturador_salir') }}" >Salir</a>    
+    <a class="btn btn-danger"  href="{{ path('app_usuario') }}" >Salir</a>    
     
-        <h1>Seleccionar Ticket a Facturar </h1>
+        <h1 class="p-3 mb-2 bg-primary text-white" >Seleccionar Ticket a Facturar </h1>
         
     <table class="table">
         <thead>
@@ -46,7 +46,7 @@
                  {% if ticket.activo == true %}
                     <a  class="btn btn-primary" href="{{ path('app_facturador_crearFactura',{'idTicket': ticket.idTicket , 'idFacturador':facturador.idFacturador}) }}">Crear y Enviar Factura</a>
                 {% elseif ticket.activo == false %}
-                    <a  class="btn btn-primary btn-lg disabled" >Crear y Enviar Factura</a>
+                    <a  class="btn btn-primary btn-sm disabled" >Crear y Enviar Factura</a>
                 {% endif %} 
             </td>
           <tr>

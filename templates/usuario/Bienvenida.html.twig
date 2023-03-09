@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}
 
 {% block title %}Sistema de Tickets Automatico{% endblock %}
 
@@ -12,25 +12,26 @@
         {% if rol == 1 %}
             <h1>Bienvenido Gerente ! ✅</h1>
             <div class="btn-group-toggle" data-toggle="buttons">
-            <a class="btn btn-secondary" href="{{ path('app_gerente_inicio')}}" >Confirmar</a>     
+            <a class="btn btn-secondary" href="{{ path('app_gerente_inicio', {'id':usuarioGeneral.usuario})}}" >Confirmar</a>     
             </div>
         {% elseif rol == 2 %}
             <h1>Bienvenido Personal Tecnico ! ✅</h1>
             <div class="btn-group-toggle" data-toggle="buttons">
-            <a class="btn btn-secondary" href="{{path('app_personaltecnico_inicio')}}">Confirmar</a>
+            <a class="btn btn-secondary" href="{{path('app_personaltecnico_inicio', {'id':usuarioGeneral.usuario})}}">Confirmar</a>
             </div>
         {% elseif rol == 3 %}
             <h1>Bienvenido Facturador ! ✅</h1>
             <div class="btn-group-toggle" data-toggle="buttons">
-            <a class="btn btn-secondary" href="{{path('app_facturador_inicio')}}">Confirmar</a>
+            <a class="btn btn-secondary" href="{{path('app_facturador_inicio', {'id':usuarioGeneral.usuario})}}">Confirmar</a>
             </div>
         {% elseif rol == 4 %}
             <h1>Bienvenido Cliente ! ✅</h1>
             <div class="btn-group-toggle" data-toggle="buttons">
-            <a class="btn btn-secondary" href="{{ path('app_cliente_inicio')}}" >Confirmar</a>           
+              
+            <a class="btn btn-secondary" href="{{ path('app_cliente_inicio', {'id':usuarioGeneral.usuario})}}" >Confirmar</a>           
             </div>
         {% else %}
                 <th>Rol no enviado</th>
         {% endif %}   
 </div>
-{% endblock %}
+{% endblock %}  #}

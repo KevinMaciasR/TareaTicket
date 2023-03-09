@@ -1,5 +1,5 @@
 {#usando el metodo post envia el id del cliente a al metodo con con name='app_cliente_delete' para ser eliminado al presionar delete#}
-<form method="post" action="{{ path('app_cliente_delete', {'idCliente': cliente.idCliente}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+{#<form method="post" action="{{ path('app_cliente_delete', {'idCliente': cliente.idCliente}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cliente.idCliente) }}">
     <button class="btn">Delete</button>
-</form>
+</form> #}

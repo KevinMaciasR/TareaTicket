@@ -1,4 +1,20 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="form-group row"> 
+    {{form_label(form.nombre)}} {# Texto Titulo#}
+    {{ form_widget(form.nombre) }} {#Cuadro de entrada del atributo Titulo#}
+    
+    {{form_label(form.cedula)}}
+    {{ form_widget(form.cedula) }}
+
+    {{form_label(form.usuario)}}
+    {{ form_widget(form.usuario) }}
+    
+    {{form_label(form.clave)}}
+    {{ form_widget(form.clave) }}
+
+    {{form_label(form.correo)}}
+    {{ form_widget(form.correo) }}
+    
+    <button class="btn btn-dark">{{ button_label|default('Registrar') }}</button>
+</div>
 {{ form_end(form) }}

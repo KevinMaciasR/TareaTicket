@@ -1,0 +1,46 @@
+{#{% extends 'base.html.twig' %}
+
+{% block title %}Personaltecnico index{% endblock %}
+
+{% block body %}
+    <h1>Personaltecnico index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdTecnico</th>
+                <th>Nombre</th>
+                <th>Cedula</th>
+                <th>Usuario</th>
+                <th>Clave</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personaltecnico in personaltecnicos %}
+            <tr>
+                <td>{{ personaltecnico.idTecnico }}</td>
+                <td>{{ personaltecnico.nombre }}</td>
+                <td>{{ personaltecnico.cedula }}</td>
+                <td>{{ personaltecnico.usuario }}</td>
+                <td>{{ personaltecnico.clave }}</td>
+                <td>{{ personaltecnico.correo }}</td>
+                <td>{{ personaltecnico.rol }}</td>
+                <td>
+                    <a href="{{ path('app_personaltecnico_show', {'idTecnico': personaltecnico.idTecnico}) }}">show</a>
+                    <a href="{{ path('app_personaltecnico_edit', {'idTecnico': personaltecnico.idTecnico}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_personaltecnico_new') }}">Create new</a>
+{% endblock %}
+#}

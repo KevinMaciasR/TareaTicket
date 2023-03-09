@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace App\Form;
 
 use App\Entity\Factura;
@@ -27,5 +27,5 @@ class FacturaType extends AbstractType
         ]);
     }
 }
-
+*/
 ?>

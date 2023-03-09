@@ -1,5 +1,5 @@
 <?php
-
+/*
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -10,5 +10,5 @@ $passwordCliente=$_POST["password"];
     header("Location:ClienteController.php?usuarioCliente=".$_Post['usuarioCliente']);
     header("Location:ClienteController.php?usuarioCliente=".$_Post['passwordCliente']);
 
-
+*/
 ?>

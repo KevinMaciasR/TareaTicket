@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace App\Form;
 
 use App\Entity\Referenciasprecios;
@@ -23,4 +23,5 @@ class ReferenciaspreciosType extends AbstractType
             'data_class' => Referenciasprecios::class,
         ]);
     }
-}
+}*/
+?>
