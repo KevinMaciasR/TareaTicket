@@ -18,7 +18,11 @@ class Gerente1Type extends AbstractType
             ->add('cedula', IntegerType::class)
             ->add('usuario')
             ->add('clave')
+<<<<<<< HEAD
             ->add('correo',EmailType::class)
+=======
+            ->add('correo')
+>>>>>>> 704101e5771c5030c2745d04cfd7e6c29038fcb7
         ;
     }
 

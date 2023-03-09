@@ -73,6 +73,7 @@ class GerenteController extends AbstractController
         $gerente->setRol(1);// rol de gerente
 
         if ($form->isSubmitted() && $form->isValid()) {
+<<<<<<< HEAD
             if( $gerente->getUsuario()!= null){
                 //validacion para que no se registren clientes repetidos
                 $correo = $entityManager->getRepository(Gerente::class)
@@ -95,6 +96,18 @@ class GerenteController extends AbstractController
                         'facturas'=> $facturas
                     ]);
         }}}
+=======
+            $entityManager->persist($gerente);
+            $entityManager->flush();
+            $facturas = $entityManager
+            ->getRepository(Factura::class)
+            ->findAll();
+            return $this->render('gerente/PortadaGerente.html.twig',[
+                'gerente' => $gerente,
+                'facturas'=> $facturas
+            ]);
+        }
+>>>>>>> 704101e5771c5030c2745d04cfd7e6c29038fcb7
 
         return $this->renderForm('gerente/new.html.twig', [
             'gerente' => $gerente,
@@ -105,12 +118,21 @@ class GerenteController extends AbstractController
     /**
     * @Route("/salir", name="app_gerente_salir")
     */
+<<<<<<< HEAD
     /*public function salirgerente(): Response
     {   
         return $this->render('usuario/index.html.twig', [
             'controller_name' => 'UsuarioController',
         ]);
     }*/
+=======
+        public function salirgerente(): Response
+        {   
+            return $this->render('usuario/index.html.twig', [
+                'controller_name' => 'UsuarioController',
+            ]);
+        }
+>>>>>>> 704101e5771c5030c2745d04cfd7e6c29038fcb7
     
     /**
     * @Route("/facturap", name="app_gerente_facturaP")
